@@ -66,11 +66,16 @@ class Position_model extends CI_Model
 
     public function insert($position)
     {
-        $sql = "insert position(name_position, description_position) values (?,?)";
 
-        $query = $this->db->query($sql, $position);  
+        if(empty($this->getByDescription($position))){
+            
+            $sql = "insert position(name_position, description_position) values (?,?)";
 
-        return $query;
+            $query = $this->db->query($sql, $position);  
+
+        }
+
+        return null;
     }
 
     public function changeStatus($status)
