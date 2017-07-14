@@ -40,6 +40,21 @@ class Position_model extends CI_Model
         return null;
     }
 
+    public function getByDescription($position)
+    {
+        $sql = "SELECT * FROM position where description_status like '%?%'";
+
+        $query = $this->db->query($sql, $position);  
+        
+        if($query->num_rows() > 0){
+
+            return $query->custom_result_object('Position');
+            
+        }
+
+        return null;
+    }
+
     public function deleteById($position)
     {
         $sql = "delete FROM position where id_position = ?";
