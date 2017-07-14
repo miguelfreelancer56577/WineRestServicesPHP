@@ -25,5 +25,15 @@ class Restservices extends REST_Controller {
         	}
         } 
     }
+
+    public function sendResponse($headerResponse){
+        
+        if(!empty($headerResponse->businessRequest)){
+            $this->response($headerResponse, $headerResponse->status);
+        }else{
+            $this->response($headerResponse);
+        }
+
+    }
     
 }
