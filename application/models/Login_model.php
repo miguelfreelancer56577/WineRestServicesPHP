@@ -11,7 +11,16 @@ class Login_model extends CI_Model
     public function toSearchCards($user)
     {
 
-    	$sql = "SELECT * FROM user WHERE name_user = ? AND password = ?";
+    	$sql = "SELECT
+                    a.*
+                FROM
+                    user as a,
+                    employee as b
+                WHERE 
+                    name_user = ? 
+                AND password = ?
+                and b.id_employee = a.id_employee
+                and b.id_status = 1";
 
 		$query = $this->db->query($sql, array($user->name_user, $user->password));	
     	
