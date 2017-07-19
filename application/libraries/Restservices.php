@@ -6,7 +6,7 @@ include APPPATH . '/beans/User.php';
 
 class Restservices extends REST_Controller {
 
-	public $header_request;
+	public $businessRequest;
 
     function __construct() {
 
@@ -22,13 +22,15 @@ class Restservices extends REST_Controller {
         }else{
         	if(!$this->login_model->isValidToken($this->post("id_user"), $this->post("token"))){
         		$this->response("Your token has expired or someone has started a session in another device.", 401);
-        	}
+        	}else{
+                $this->businessRequest = $this->post("businessRequest");
+            }
         } 
     }
 
     public function sendResponse($headerResponse){
         
-        if(!empty($headerResponse->businessRequest)){
+        if(property_exists('HeaderResponse', 'businessRequest')){
             $this->response($headerResponse, $headerResponse->status);
         }else{
             $this->response($headerResponse);
