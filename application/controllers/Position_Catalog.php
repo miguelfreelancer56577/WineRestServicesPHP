@@ -13,7 +13,7 @@ class Position_Catalog extends Restservices {
     public function getAll_post()
     {   
         $headerResponse = new HeaderResponse();
-        $headerResponse->businessRequest = $this->position_model->getAll();
+        $headerResponse->businessResponse = $this->position_model->getAll();
         $this->sendResponse($headerResponse);
     }
 
@@ -32,14 +32,14 @@ class Position_Catalog extends Restservices {
         $headerResponse = new HeaderResponse();
         
         try{
-            $response = $this->position_model->insert($this->businessRequest);
+            $response = $this->position_model->insert($this->headerRequest->businessRequest);
             if($response){
-                $headerResponse->businessRequest = $response;
+                $headerResponse->businessResponse = $response;
             }
         }catch(PositionException $e){
             $headerResponse->status = 400;
             $headerResponse->message = $e->getMessage();
-            $headerResponse->businessRequest = false;
+            $headerResponse->businessResponse = false;
         }
 
         $this->sendResponse($headerResponse);
