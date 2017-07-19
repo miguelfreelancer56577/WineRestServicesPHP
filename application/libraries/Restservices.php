@@ -3,6 +3,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 include APPPATH . '/beans/User.php';
+include APPPATH . '/beans/HeaderResponse.php';
+include APPPATH . '/beans/Position.php';
+include APPPATH . '/beans/Status.php';
+include APPPATH . '/exception/CustomException.php';
 
 class Restservices extends REST_Controller {
 

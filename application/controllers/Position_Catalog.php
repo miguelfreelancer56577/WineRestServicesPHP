@@ -2,7 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/Restservices.php';
-include APPPATH . '/beans/HeaderResponse.php';
 
 class Position_Catalog extends Restservices {
 
