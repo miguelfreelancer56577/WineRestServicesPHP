@@ -28,9 +28,22 @@ class Position_Catalog extends Restservices {
         
     }
 
-    public function insert()
+    public function insert_post()
     {
+        $headerResponse = new HeaderResponse();
         
+        try{
+            $response = $this->position_model->insert($this->businessRequest);
+            if($response){
+                $headerResponse->businessRequest = $response;
+            }
+        }catch(PositionException $e){
+            $headerResponse->status = 400;
+            $headerResponse->message = $e->getMessage();
+            $headerResponse->businessRequest = false;
+        }
+
+        $this->sendResponse($headerResponse);
     }
 
     public function deleteById()
