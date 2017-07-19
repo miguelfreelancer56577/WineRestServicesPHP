@@ -1,7 +1,5 @@
 <?php
 defined("BASEPATH") OR die("El acceso al script no está permitido");
-include APPPATH . '/beans/Position.php';
-include APPPATH . '/beans/Status.php';
 
 class Position_model extends CI_Model
 {
@@ -40,11 +38,11 @@ class Position_model extends CI_Model
         return null;
     }
 
-    public function getByDescription($position)
-    {
-        $sql = "SELECT * FROM position where description_status like '%?%'";
-
-        $query = $this->db->query($sql, $position);  
+    public function getByName($position)
+    {   
+        $this->db->select('*');
+        $this->db->like('name_position', $position["name_position"]);
+        $query = $this->db->get('position'); 
         
         if($query->num_rows() > 0){
 
@@ -65,17 +63,20 @@ class Position_model extends CI_Model
     }
 
     public function insert($position)
-    {
+    {   
+        $positionException = new PositionException( "This record already exists." , PositionException::AlreadyExists );
 
-        if(empty($this->getByDescription($position))){
-            
-            $sql = "insert position(name_position, description_position) values (?,?)";
+        $search = $this->getByName($position);
 
-            $query = $this->db->query($sql, $position);  
-
+        if(empty($search)){
+            unset($position["id_position"]);
+            if($this->db->insert('position', $position)){
+                return true;
+            }
         }
+        
+        throw $positionException;
 
-        return null;
     }
 
     public function changeStatus($status)
