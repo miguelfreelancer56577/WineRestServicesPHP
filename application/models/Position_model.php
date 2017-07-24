@@ -25,13 +25,13 @@ class Position_model extends CI_Model
 
     public function getById($position)
     {
-        $sql = "SELECT * FROM position where id_position = ?";
-
-        $query = $this->db->query($sql, $position);  
+       $this->db->select('*');
+        $this->db->where('id_position', $position["id_position"]);
+        $query = $this->db->get('position'); 
         
         if($query->num_rows() > 0){
 
-            return $query->custom_result_object('Position');
+            return $query->custom_result_object('Position')[0];
             
         }
 

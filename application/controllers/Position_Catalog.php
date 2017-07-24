@@ -19,7 +19,18 @@ class Position_Catalog extends Restservices {
 
     public function getById_post()
     {
+        $headerResponse = new HeaderResponse();
         
+        $response = $this->position_model->getById($this->headerRequest->businessRequest);
+        if($response){
+            $headerResponse->businessResponse = $response;
+        }else{
+            $headerResponse->status = 404;
+            $headerResponse->message = "Record not found.";
+            $headerResponse->businessResponse = false;
+        }
+
+        $this->sendResponse($headerResponse);
     }
 
     public function getByName_post()
