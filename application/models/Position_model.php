@@ -55,11 +55,13 @@ class Position_model extends CI_Model
 
     public function deleteById($position)
     {
-        $sql = "delete FROM position where id_position = ?";
-
-        $query = $this->db->query($sql, $position);  
-
-        return $query;
+        $this->db->where('id_position', $position["id_position"]);
+        $statement = $this->db->delete('position');
+        if($statement){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function insert($position)

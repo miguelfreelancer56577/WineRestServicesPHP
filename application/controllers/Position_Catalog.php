@@ -67,9 +67,20 @@ class Position_Catalog extends Restservices {
         $this->sendResponse($headerResponse);
     }
 
-    public function deleteById()
+    public function deleteById_post()
     {
+        $headerResponse = new HeaderResponse();
         
+        $response = $this->position_model->deleteById($this->headerRequest->businessRequest);
+        if($response){
+            $headerResponse->businessResponse = $response;
+        }else{
+            $headerResponse->status = 400;
+            $headerResponse->message = "You had an error to try to delete the record";
+            $headerResponse->businessResponse = false;
+        }
+
+        $this->sendResponse($headerResponse);
     }
     
 }
