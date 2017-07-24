@@ -39,7 +39,7 @@ abstract class CustomException extends Exception implements IException
     }
 }
 
-class PositionException extends CustomException {
+class RestException extends CustomException {
     
     const AlreadyExists = 1;
 

@@ -64,7 +64,7 @@ class Position_model extends CI_Model
 
     public function insert($position)
     {   
-        $positionException = new PositionException( "This record already exists." , PositionException::AlreadyExists );
+        $restException = new RestException( "This record already exists." , RestException::AlreadyExists );
 
         $search = $this->getByName($position);
 
@@ -75,7 +75,7 @@ class Position_model extends CI_Model
             }
         }
         
-        throw $positionException;
+        throw $restException;
 
     }
 

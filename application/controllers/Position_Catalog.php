@@ -36,7 +36,7 @@ class Position_Catalog extends Restservices {
             if($response){
                 $headerResponse->businessResponse = $response;
             }
-        }catch(PositionException $e){
+        }catch(RestException $e){
             $headerResponse->status = 400;
             $headerResponse->message = $e->getMessage();
             $headerResponse->businessResponse = false;
