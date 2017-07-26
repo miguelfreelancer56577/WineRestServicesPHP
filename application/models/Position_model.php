@@ -10,7 +10,7 @@ class Position_model extends CI_Model
 
     public function getAll()
     {
-        $sql = "SELECT * FROM position";
+        $sql = "SELECT * FROM position where id_status = 1";
 
         $query = $this->db->query($sql);  
         
