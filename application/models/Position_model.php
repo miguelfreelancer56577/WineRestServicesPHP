@@ -81,13 +81,16 @@ class Position_model extends CI_Model
 
     }
 
-    public function changeStatus($status)
+    public function changeStatus($position)
     {
-        $sql = "update position set id_status = ? where id_position = ?";
-
-        $query = $this->db->query($sql, $position);  
-
-        return $query;
+        $this->db->set('id_status', $position["id_status"]);
+        $this->db->where('id_position', $position["id_position"]);
+        $statement = $this->db->update('position');
+        if($statement){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
