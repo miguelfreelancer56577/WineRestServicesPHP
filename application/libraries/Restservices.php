@@ -8,6 +8,7 @@ include APPPATH . '/beans/HeaderRequest.php';
 include APPPATH . '/beans/Position.php';
 include APPPATH . '/beans/Status.php';
 include APPPATH . '/beans/StatusEmployee.php';
+include APPPATH . '/beans/Country.php';
 include APPPATH . '/exception/CustomException.php';
 
 class Restservices extends REST_Controller {
