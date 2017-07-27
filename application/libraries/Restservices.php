@@ -12,16 +12,21 @@ include APPPATH . '/beans/Country.php';
 include APPPATH . '/beans/StatusPurchase.php';
 include APPPATH . '/beans/Endpoint.php';
 include APPPATH . '/beans/Permission.php';
+include APPPATH . '/beans/Employee.php';
+include APPPATH . '/beans/InfoUser.php';
 include APPPATH . '/exception/CustomException.php';
 
 class Restservices extends REST_Controller {
 
 	public $headerRequest;
+    public $infoUser;
 
     function __construct() {
 
         parent::__construct();
         $this->load->model('login_model');
+        $this->load->model('user_model');
+        $this->load->model('employee_model');
 
     	$headerResponse = new HeaderResponse();
         $headerResponse->status = 400;
@@ -39,7 +44,17 @@ class Restservices extends REST_Controller {
                 $this->sendResponse($headerResponse);
         	}else{
                 $this->headerRequest = $headerRequest;
-            }
+                $user = new User();
+                $employee = new Employee();
+                $infoUser = new InfoUser();
+                $user->token = $this->post('token');
+                $user  = $this->user_model->getByToken($user);
+                $employee->id_employee = $user->id_employee;
+                $employee  = $this->employee_model->getById($employee);
+                $infoUser->user = $user;            
+                $infoUser->employee = $employee;
+                $this->infoUser = $infoUser;
+            }          
         } 
     }
 
