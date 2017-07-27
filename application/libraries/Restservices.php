@@ -27,6 +27,7 @@ class Restservices extends REST_Controller {
         $this->load->model('login_model');
         $this->load->model('user_model');
         $this->load->model('employee_model');
+        $this->load->model('permission_model');
 
     	$headerResponse = new HeaderResponse();
         $headerResponse->status = 400;
@@ -59,13 +60,23 @@ class Restservices extends REST_Controller {
     }
 
     public function sendResponse($headerResponse){
-        
-        if(property_exists('HeaderResponse', 'businessResponse')){
-            $this->response($headerResponse, $headerResponse->status);
-        }else{
-            $this->response($headerResponse);
-        }
-
+            if(property_exists('HeaderResponse', 'businessResponse')){
+                $isLog = empty($this->infoUser->employee->id_employee);
+                if($isLog){
+                    $this->response($headerResponse, $headerResponse->status);
+                }else{
+                    if($this->permission_model->hasAccess(uri_string(),$this->infoUser->employee->id_employee)){
+                        $this->response($headerResponse, $headerResponse->status);
+                    }else{
+                        $headerResponse = new HeaderResponse();
+                        $headerResponse->status = 405;
+                        $headerResponse->message = "You don't have access to this method.";
+                        $this->response($headerResponse, $headerResponse->status);
+                    }
+                }
+            }else{
+                $this->response($headerResponse);
+            }
     }
     
 }
