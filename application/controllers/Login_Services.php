@@ -23,8 +23,8 @@ class Login_Services extends REST_Controller {
         $infoUser = new InfoUser();
         $headerResponse = new HeaderResponse();
 
-    	$user->name_user = $this->post('user');
-		$user->password = $this->post('pass');  	
+    	$user->name_user = $this->post('name_user');
+		$user->password = $this->post('password');  	
 
     	$user  = $this->login_model->toSearchCards($user);
 
