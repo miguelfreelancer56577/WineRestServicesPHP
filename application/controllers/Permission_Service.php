@@ -52,7 +52,7 @@ class Permission_Service extends Restservices {
                 $headerResponse->businessResponse = $response;
             }
         }catch(RestException $e){
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = $e->getMessage();
             $headerResponse->businessResponse = false;
         }
@@ -71,7 +71,7 @@ class Permission_Service extends Restservices {
             try{
                 $response = $this->permission_model->insert($permission);
             }catch(RestException $e){
-                $headerResponse->status = 400;
+                $headerResponse->status = 403;
                 array_push($errors, $permission);
             }
         }
@@ -91,7 +91,7 @@ class Permission_Service extends Restservices {
         if($response){
             $headerResponse->businessResponse = $response;
         }else{
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = "You had an error to try to delete the record";
             $headerResponse->businessResponse = false;
         }

@@ -59,7 +59,7 @@ class Position_Catalog extends Restservices {
                 $headerResponse->businessResponse = $response;
             }
         }catch(RestException $e){
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = $e->getMessage();
             $headerResponse->businessResponse = false;
         }
@@ -75,7 +75,7 @@ class Position_Catalog extends Restservices {
         if($response){
             $headerResponse->businessResponse = $response;
         }else{
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = "You had an error to try to delete the record";
             $headerResponse->businessResponse = false;
         }
@@ -91,7 +91,7 @@ class Position_Catalog extends Restservices {
         if($response){
             $headerResponse->businessResponse = $response;
         }else{
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = "You had an error to try to change the status";
             $headerResponse->businessResponse = false;
         }
@@ -109,7 +109,7 @@ class Position_Catalog extends Restservices {
                 $headerResponse->businessResponse = $response;
             }
         }catch(RestException $e){
-            $headerResponse->status = 400;
+            $headerResponse->status = 403;
             $headerResponse->message = $e->getMessage();
             $headerResponse->businessResponse = false;
         }

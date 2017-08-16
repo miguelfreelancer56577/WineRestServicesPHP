@@ -39,7 +39,7 @@ class Login_Services extends REST_Controller {
 			$headerResponse->businessResponse = $infoUser;
 			$this->response($headerResponse, $headerResponse->status);
     	}else{
-    		$headerResponse->status = 401;
+    		$headerResponse->status = 406;
 			$headerResponse->message = "Your user or password are incorrect.";
 			$this->response($headerResponse, $headerResponse->status);
     	}
