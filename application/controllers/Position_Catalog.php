@@ -103,14 +103,12 @@ class Position_Catalog extends Restservices {
     {
         $headerResponse = new HeaderResponse();
         
-        try{
-            $response = $this->position_model->update($this->headerRequest->businessRequest);
-            if($response){
-                $headerResponse->businessResponse = $response;
-            }
-        }catch(RestException $e){
-            $headerResponse->status = 403;
-            $headerResponse->message = $e->getMessage();
+        $response = $this->position_model->update($this->headerRequest->businessRequest);
+        if($response){
+            $headerResponse->businessResponse = $response;
+        }else{
+            $headerResponse->status = 400;
+            $headerResponse->message = "It was an error to update the record.";
             $headerResponse->businessResponse = false;
         }
 
