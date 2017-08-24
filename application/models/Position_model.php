@@ -10,7 +10,7 @@ class Position_model extends CI_Model
 
     public function getAll()
     {
-        $sql = "SELECT * FROM position where id_status = 1";
+        $sql = "SELECT * FROM position";
 
         $query = $this->db->query($sql);  
         
@@ -95,23 +95,13 @@ class Position_model extends CI_Model
 
     public function update($position)
     {
-
-        $restException = new RestException( "You already have a record with the same description into database." , RestException::AlreadyExists );
-
-        $search = $this->getByName($position);
-
-        if(empty($search)){
-            $this->db->where('id_position', $position["id_position"]);
-            $statement = $this->db->update('position', $position);
-            if($statement){
-                return true;
-            }else{
-                return false;
-            }
+        $this->db->where('id_position', $position["id_position"]);
+        $statement = $this->db->update('position', $position);
+        if($statement){
+            return true;
+        }else{
+            return false;
         }
-        
-        throw $restException;
-
     }
 
 }
