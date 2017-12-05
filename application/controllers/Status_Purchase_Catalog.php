@@ -101,4 +101,25 @@ class Status_Purchase_Catalog extends Restservices {
         $this->sendResponse($headerResponse);
     }
 
+    public function uploadImg_post()
+    {
+
+        $count = 0;
+
+        foreach ($this->post() as $img) {
+            if($this->status_purchase_model->saveImg($img)){
+                $count++;
+            }
+        }
+
+        $this->sendResponse($count);
+
+    }
+
+    public function getImg_post()
+    {
+
+        $this->sendResponse($this->status_purchase_model->getImg());
+    }
+
 }

@@ -105,5 +105,32 @@ class Status_Purchase_model extends CI_Model
 
     }
 
+    public function saveImg($img)
+    {
+        unset($img["id_item"]);
+        $status = $this->db->insert("item", $img);
+        if($status){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getImg()
+    {
+        
+        $sql = "SELECT * FROM item";
+
+        $query = $this->db->query($sql);  
+        
+        if($query->num_rows() > 0){
+
+            return $query->result();
+            
+        }
+
+        return null;
+    }
+
 
 }
